@@ -7,7 +7,8 @@ type ArrowProps = {
   rowHeight: number;
   taskHeight: number;
   arrowIndent: number;
-  rtl: boolean;
+  rtl: boolean; 
+  relationship: 'FS' | 'SS' | 'FF'
 };
 export const Arrow: React.FC<ArrowProps> = ({
   taskFrom,
@@ -15,7 +16,8 @@ export const Arrow: React.FC<ArrowProps> = ({
   rowHeight,
   taskHeight,
   arrowIndent,
-  rtl,
+  rtl,  
+  relationship
 }) => {
   let path: string;
   let trianglePoints: string;
@@ -33,7 +35,8 @@ export const Arrow: React.FC<ArrowProps> = ({
       taskTo,
       rowHeight,
       taskHeight,
-      arrowIndent
+      arrowIndent,
+      relationship
     );
   }
 
@@ -50,28 +53,53 @@ const drownPathAndTriangle = (
   taskTo: BarTask,
   rowHeight: number,
   taskHeight: number,
-  arrowIndent: number
+  arrowIndent: number,
+  relationship: 'FS' | 'SS' | 'FF'
 ) => {
   const indexCompare = taskFrom.index > taskTo.index ? -1 : 1;
   const taskToEndPosition = taskTo.y + taskHeight / 2;
-  const taskFromEndPosition = taskFrom.x2 + arrowIndent * 2;
-  const taskFromHorizontalOffsetValue =
-    taskFromEndPosition < taskTo.x1 ? "" : `H ${taskTo.x1 - arrowIndent}`;
-  const taskToHorizontalOffsetValue =
-    taskFromEndPosition > taskTo.x1
-      ? arrowIndent
-      : taskTo.x1 - taskFrom.x2 - arrowIndent;
+  const taskToEndPositionFF = taskTo.x2;
+  const taskFromStartPosition = taskFrom.x1;
+  const taskFromEndPosition = taskFrom.x2;
+  const taskToStartPosition = taskTo.x1;
+  let path, trianglePoints;
 
-  const path = `M ${taskFrom.x2} ${taskFrom.y + taskHeight / 2} 
-  h ${arrowIndent} 
-  v ${(indexCompare * rowHeight) / 2} 
-  ${taskFromHorizontalOffsetValue}
-  V ${taskToEndPosition} 
-  h ${taskToHorizontalOffsetValue}`;
+  switch (relationship) {
+    case 'FS':
+      path = `M ${taskFromEndPosition} ${taskFrom.y + taskHeight / 2} 
+              h ${arrowIndent} 
+              v ${(indexCompare * rowHeight) / 2} 
+              H ${taskToStartPosition - arrowIndent}
+              V ${taskToEndPosition} 
+              h ${arrowIndent}`;
+      trianglePoints = `${taskToStartPosition},${taskToEndPosition} 
+                        ${taskToStartPosition - 5},${taskToEndPosition - 5} 
+                        ${taskToStartPosition - 5},${taskToEndPosition + 5}`;
+      break;
+    case 'SS':
+      path = `M ${taskFromStartPosition} ${taskFrom.y + taskHeight / 2} 
+              h ${-arrowIndent} 
+              v ${(indexCompare * rowHeight / 2)} 
+              H ${taskToStartPosition - arrowIndent}
+              V ${taskToEndPosition} 
+              h ${arrowIndent}`;
+      trianglePoints = `${taskToStartPosition},${taskToEndPosition} 
+                        ${taskToStartPosition - 5},${taskToEndPosition - 5} 
+                        ${taskToStartPosition - 5},${taskToEndPosition + 5}`;
+      break;
+    case 'FF':
+      path = `M ${taskFromEndPosition} ${taskFrom.y + taskHeight / 2} 
+              h ${arrowIndent} 
+              v ${(indexCompare * rowHeight) / 2} 
+              H ${taskToEndPositionFF + arrowIndent}
+              V ${taskToEndPosition} 
+              h ${-arrowIndent}`;
+      trianglePoints = `${taskToEndPositionFF},${taskToEndPosition} 
+                        ${taskToEndPositionFF + 5},${taskToEndPosition - 5} 
+                        ${taskToEndPositionFF + 5},${taskToEndPosition + 5}`;
+      break;
+  }
 
-  const trianglePoints = `${taskTo.x1},${taskToEndPosition} 
-  ${taskTo.x1 - 5},${taskToEndPosition - 5} 
-  ${taskTo.x1 - 5},${taskToEndPosition + 5}`;
   return [path, trianglePoints];
 };
 

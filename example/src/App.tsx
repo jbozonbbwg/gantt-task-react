@@ -10,6 +10,8 @@ const App = () => {
   const [tasks, setTasks] = React.useState<Task[]>(initTasks());
   const [isChecked, setIsChecked] = React.useState(true);
   let columnWidth = 65;
+
+  // Modify column width based on view mode
   if (view === ViewMode.Year) {
     columnWidth = 350;
   } else if (view === ViewMode.Month) {
@@ -18,6 +20,11 @@ const App = () => {
     columnWidth = 250;
   }
 
+  
+  /**
+   * Handles the change of a task.
+   * @param {Task} task - The task object that has been changed.
+   */
   const handleTaskChange = (task: Task) => {
     console.log("On date change Id:" + task.id);
     let newTasks = tasks.map(t => (t.id === task.id ? task : t));

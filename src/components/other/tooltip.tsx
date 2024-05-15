@@ -140,6 +140,19 @@ export const StandardTooltipContent: React.FC<{
       <p className={styles.tooltipDefaultContainerParagraph}>
         {!!task.progress && `Progress: ${task.progress} %`}
       </p>
+
+    {task.relationshipMap && task.relationshipMap.length > 0 && (
+      <div>
+        <p className={styles.tooltipDefaultContainerParagraph}>Child Tasks:</p>
+        <ul>
+          {task.relationshipMap.map((child, index) => (
+            <li key={index}>
+              {child.relatedTask} - {child.type}
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
     </div>
   );
 };

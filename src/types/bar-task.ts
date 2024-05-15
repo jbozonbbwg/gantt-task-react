@@ -18,6 +18,12 @@ export interface BarTask extends Task {
     progressColor: string;
     progressSelectedColor: string;
   };
+  relationships: TaskRelationship[];
 }
 
 export type TaskTypeInternal = TaskType | "smalltask";
+
+export interface TaskRelationship {
+  relatedTask: BarTask;
+  type: "SS" | "FF" | "FS";
+}

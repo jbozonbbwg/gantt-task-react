@@ -48,13 +48,30 @@ export const convertToBarTasks = (
 
   // set dependencies
   barTasks = barTasks.map(task => {
-    const dependencies = task.dependencies || [];
-    for (let j = 0; j < dependencies.length; j++) {
-      const dependence = barTasks.findIndex(
-        value => value.id === dependencies[j]
+    // Retrieve relationship map or initialize as empty array if undefined
+    const dependencies = task.relationshipMap || [];
+
+    dependencies.forEach(dependency => { 
+
+      console.log("Looking for task: ", dependency.relatedTask)
+
+      // Find the index of the task that the current task depends on
+      const barTaskToConnect = barTasks.find(
+        value => value.id === dependency.relatedTask
       );
-      if (dependence !== -1) barTasks[dependence].barChildren.push(task);
-    }
+
+      // add dependence as child to task as a relationship
+      if (barTaskToConnect !== undefined) {
+        const relationship = {
+          relatedTask: barTaskToConnect,
+          type: dependency.type
+        }
+        task.relationships.push(relationship);
+      }
+    })
+
+    console.log("Formatted task:", task)
+
     return task;
   });
 
@@ -196,6 +213,7 @@ const convertToBar = (
     hideChildren,
     height: taskHeight,
     barChildren: [],
+    relationships: [],
     styles,
   };
 };
@@ -242,6 +260,7 @@ const convertToMilestone = (
     height: rotatedHeight,
     hideChildren: undefined,
     barChildren: [],
+    relationships: [],
     styles,
   };
 };

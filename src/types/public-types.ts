@@ -28,9 +28,11 @@ export interface Task {
   };
   isDisabled?: boolean;
   project?: string;
-  dependencies?: string[];
+  dependencies?: string[]; // Dependencies are id's of the tasks that are dependent on this task
+  relationshipMap?: Relationship[];
   hideChildren?: boolean;
   displayOrder?: number;
+  relationship?: 'FS' | 'SS' | 'FF'; // Finish-Start, Start-Start, Finish-Finish
 }
 
 export interface EventOption {
@@ -142,4 +144,9 @@ export interface StylingOption {
 
 export interface GanttProps extends EventOption, DisplayOption, StylingOption {
   tasks: Task[];
+}
+
+export interface Relationship {
+  relatedTask: string;
+  type: 'FS' | 'SS' | 'FF';
 }

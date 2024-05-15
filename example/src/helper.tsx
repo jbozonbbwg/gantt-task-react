@@ -28,6 +28,12 @@ export function initTasks() {
       type: "task",
       project: "ProjectSample",
       displayOrder: 2,
+      relationshipMap: [
+        {
+          relatedTask: "Task 1",
+          type: "SS"
+        }
+      ]
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 2),
@@ -35,10 +41,15 @@ export function initTasks() {
       name: "Research",
       id: "Task 1",
       progress: 25,
-      dependencies: ["Task 0"],
       type: "task",
       project: "ProjectSample",
       displayOrder: 3,
+      relationshipMap: [
+        {
+          relatedTask: "Task 2",
+          type: "FF"
+        }
+      ]
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 4),
@@ -46,10 +57,19 @@ export function initTasks() {
       name: "Discussion with team",
       id: "Task 2",
       progress: 10,
-      dependencies: ["Task 1"],
       type: "task",
       project: "ProjectSample",
       displayOrder: 4,
+      relationshipMap: [
+        {
+          relatedTask: "Task 3",
+          type: "FS"
+        },
+        {
+          relatedTask: "Task 4",
+          type: "FS"
+        }
+      ]
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 8),
@@ -57,10 +77,10 @@ export function initTasks() {
       name: "Developing",
       id: "Task 3",
       progress: 2,
-      dependencies: ["Task 2"],
       type: "task",
       project: "ProjectSample",
       displayOrder: 5,
+      relationshipMap: []
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 8),
@@ -69,9 +89,14 @@ export function initTasks() {
       id: "Task 4",
       type: "task",
       progress: 70,
-      dependencies: ["Task 2"],
       project: "ProjectSample",
       displayOrder: 6,
+      relationshipMap: [
+        {
+          relatedTask: "Task 6",
+          type: "FS"
+        }
+      ]
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 15),
@@ -80,9 +105,9 @@ export function initTasks() {
       id: "Task 6",
       progress: currentDate.getMonth(),
       type: "milestone",
-      dependencies: ["Task 4"],
       project: "ProjectSample",
       displayOrder: 7,
+      relationshipMap: []
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 18),

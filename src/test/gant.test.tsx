@@ -16,6 +16,7 @@ describe("gantt", () => {
             id: "Task 0",
             progress: 45,
             type: "task",
+            relationship: "FS"
           },
         ]}
       />
