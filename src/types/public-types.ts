@@ -33,6 +33,26 @@ export interface Task {
   hideChildren?: boolean;
   displayOrder?: number;
   relationship?: 'FS' | 'SS' | 'FF'; // Finish-Start, Start-Start, Finish-Finish
+
+  // Additional fields from file_context_0
+  charge_number?: number;
+  comments?: string;
+  control_account?: string;
+  cost?: number;
+  hrs?: number;
+  obs_id?: string;
+  pre_milestone?: number;
+  prob?: number;
+  project_id?: number;
+  risk_factor?: number;
+  skillset?: number;
+  suc_milestone?: number;
+  wbs_id?: string;
+  physical_percent_complete?: number;
+  performance?: number;
+  bac_hrs?: number;
+  etc_hrs?: number;
+  actual_hrs?: number;
 }
 
 export interface EventOption {
