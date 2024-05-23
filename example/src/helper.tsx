@@ -123,7 +123,7 @@ import { Task } from "../../dist/types/public-types";
 // }
 
 export function initTasks() {
-  const tasks = [
+  const tasks: Task[] = [
     {
       id: "1",
       name: "Task 1",
