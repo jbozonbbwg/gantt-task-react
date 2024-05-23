@@ -34,7 +34,6 @@ export interface Task {
   displayOrder?: number;
   relationship?: 'FS' | 'SS' | 'FF'; // Finish-Start, Start-Start, Finish-Finish
 
-  // Additional fields from file_context_0
   charge_number?: number;
   comments?: string;
   control_account?: string;
