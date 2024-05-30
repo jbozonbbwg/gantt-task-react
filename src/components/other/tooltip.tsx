@@ -147,7 +147,7 @@ export const StandardTooltipContent: React.FC<{
         <ul>
           {task.relationshipMap.map((child, index) => (
             <li key={index}>
-              {child.relatedTask} - {child.type}
+              {child.relatedTask} | {child.type} | {child.lag && `(${child.lag} day(s))`}
             </li>
           ))}
         </ul>

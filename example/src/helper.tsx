@@ -153,7 +153,8 @@ export function initTasks() {
       relationshipMap: [
         {
           relatedTask: "2",
-          type: 'SS'
+          type: 'SS',
+          lag: 1
         }
       ]
     },

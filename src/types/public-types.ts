@@ -168,4 +168,5 @@ export interface GanttProps extends EventOption, DisplayOption, StylingOption {
 export interface Relationship {
   relatedTask: string;
   type: 'FS' | 'SS' | 'FF';
+  lag?: number;
 }
