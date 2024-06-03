@@ -53,8 +53,6 @@ export const convertToBarTasks = (
 
     dependencies.forEach(dependency => { 
 
-      console.log("Looking for task: ", dependency.relatedTask)
-
       // Find the index of the task that the current task depends on
       const barTaskToConnect = barTasks.find(
         value => value.id === dependency.relatedTask
@@ -69,8 +67,6 @@ export const convertToBarTasks = (
         task.relationships.push(relationship);
       }
     })
-
-    console.log("Formatted task:", task)
 
     return task;
   });

@@ -264,10 +264,7 @@ export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
     <g className="content">
       <g className="arrows" fill={arrowColor} stroke={arrowColor}>
         {tasks.map(task => {
-          console.log("Creating arrows for task", task.id)
-          console.log("Relationships:", task.relationships)
           return task.relationships.map(relationship => {
-            console.log("Creating arrow from", task.id, "to", relationship.relatedTask.id)
             return (
               <Arrow
                 key={`Arrow from ${task.id} to ${relationship.relatedTask.id}`}
